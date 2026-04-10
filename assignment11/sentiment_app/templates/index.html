@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sentiment Analyzer</title>
+
+<style>
+
+body{
+font-family: Arial;
+background: linear-gradient(135deg,#667eea,#764ba2);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:10px;
+width:500px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+h1{
+margin-bottom:20px;
+}
+
+textarea{
+width:100%;
+padding:10px;
+border-radius:5px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+button{
+margin-top:15px;
+padding:10px 20px;
+background:#667eea;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#5563d6;
+}
+
+.results{
+margin-top:25px;
+display:flex;
+justify-content:space-between;
+}
+
+.card{
+flex:1;
+background:#f5f5f5;
+margin:5px;
+padding:15px;
+border-radius:8px;
+}
+
+.positive{
+color:green;
+font-weight:bold;
+}
+
+.negative{
+color:red;
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Movie Sentiment Analyzer</h1>
+
+<textarea id="review" rows="5" placeholder="Write your movie review..."></textarea>
+
+<br>
+
+<button onclick="analyze()">Analyze Sentiment</button>
+
+<div class="results">
+
+<div class="card">
+<h3>RNN</h3>
+<div id="rnn"></div>
+</div>
+
+<div class="card">
+<h3>LSTM</h3>
+<div id="lstm"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function analyze(){
+
+let text=document.getElementById("review").value;
+
+fetch("/predict",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({text:text})
+})
+.then(res=>res.json())
+.then(data=>{
+
+let rnnLabel=data.rnn_result.label;
+let lstmLabel=data.lstm_result.label;
+
+document.getElementById("rnn").innerHTML=
+`<span class="${rnnLabel=='Positive'?'positive':'negative'}">
+${rnnLabel} (${data.rnn_result.score.toFixed(2)})
+</span>`;
+
+document.getElementById("lstm").innerHTML=
+`<span class="${lstmLabel=='Positive'?'positive':'negative'}">
+${lstmLabel} (${data.lstm_result.score.toFixed(2)})
+</span>`;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
