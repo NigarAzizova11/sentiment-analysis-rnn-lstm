@@ -28,9 +28,10 @@ Positive (85%)
 
 ---
 
+
 **Input:**
 "This movie was terrible and a complete waste of time."
 
 **Output:**
 Negative (28%)
-![App Screenshot](screenshot.png)
+![App Screenshot](Screenshott.png)
