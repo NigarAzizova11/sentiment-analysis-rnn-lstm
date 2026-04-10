@@ -17,10 +17,20 @@ This project is a web-based sentiment analysis application that predicts whether
 - HTML, CSS, JavaScript
 
 
-## ⚙️ Installation
 
-1. Clone the repository:
+## 🔍 Example
 
-```bash
-git clone https://github.com/NigarAzizova11/sentiment-analysis-rnn-lstm.git
-cd sentiment-analysis-rnn-lstm
+**Input:**
+"This movie was absolutely amazing and I loved every moment of it."
+
+**Output:**
+Positive (85%)
+
+---
+
+**Input:**
+"This movie was terrible and a complete waste of time."
+
+**Output:**
+Negative (28%)
+![App Screenshot](screenshot.png)
